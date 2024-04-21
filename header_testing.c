@@ -47,7 +47,7 @@ void testCtypeH();
 void testErrnoH();
 void testFenvH();
 void testFloatH();
-void testIntypesH();
+void testIntTypesH();
 void testISO64H();
 void testLimitsH();
 void testLocaleH();
@@ -75,7 +75,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testFenvH();
+	testFloatH();
 	return 0;
 }
 
@@ -262,4 +262,22 @@ void testFenvH() {
 	printf("1.5 upwards: %.1f\n", rint(roundingNightmare));
 	fesetround(FE_DOWNWARD);
 	printf("1.5 downwards: %.1f\n", rint(roundingNightmare));
+
+	// there's more to see in this header, but its too niche for my taste
 }
+
+void testFloatH() {
+	// this header only has a bunch of macros representing float limits
+	printf("\nFLT_DECIMAL_DIG = %d\n", FLT_DECIMAL_DIG); // precision of a float in decimal digits
+	printf("FLT_RADIX = %d\n", FLT_RADIX); // the numerical base used to represent all float types
+	printf("FLT_MIN = %e\n", FLT_MIN); // the smallest number a float can represent
+	printf("FLT_TRUE_MIN = %e\n", FLT_TRUE_MIN); // the true smallest number a float can represent
+	printf("FLT_MAX = %e\n", FLT_MAX); // the largest number a float can represent
+	printf("FLT_EPSILON = %.15f\n", FLT_EPSILON); // the difference between 1.0 and the next representable float
+	printf("FLT_DIG = %d\n", FLT_DIG); // amount of decimal digits preserved when converting to text and back
+	printf("FLT_MANT_DIG = %d\n", FLT_MANT_DIG); // number of digits in the mantissa that maintain precision
+}
+
+
+
+void 

@@ -75,9 +75,11 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testCtypeH();
+	testFenvH();
 	return 0;
 }
+
+
 
 // This header has basically only 1 function (the other one is deprecated)
 void testAssertH() {
@@ -94,6 +96,8 @@ void testAssertH() {
 	assert(x == y); // false
 	printf("after assert 3 :^)\n");
 }
+
+
 
 void testComplexH() {
 	// pure imaginary numbers
@@ -133,6 +137,8 @@ void testComplexH() {
 	// more, access https://en.cppreference.com/w/c/numeric/complex
 }
 
+
+
 void testCtypeH() {
 	char A = 'A';
 	char num1 = '1';
@@ -170,4 +176,90 @@ void testCtypeH() {
 	// you can change a lowercase char to uppercase and vice-versa
 	printf("\n%c\n", tolower(uppercaseD));
 	printf("%c\n", toupper(lowercaseD));
+}
+
+
+
+void testErrnoH() {
+	// this header defines 3 error code macros, each begining with the letter E
+	int i = EDOM; // domain error
+	int j = EILSEQ; // illegal byte sequence error
+	int k = ERANGE; // range error
+
+	printf("EDOM == %d\n", i);
+	printf("EILSEQ == %d\n", j);
+	printf("ERANGE == %d\n", k);
+
+	// and also defines a thread-local preprocessor macro that
+	// becomes a modifiable variable
+	errno = 0;
+
+	// lets create a function that simulates what could happen if you
+	// tried to do some math that should give an error
+	void doSomeIllegalMath(int x) {
+		if(x != 0) {
+			printf("your result is %d\n", 727 / x);
+		} else {
+			errno = EDOM;
+			printf("pls dont divide by 0\n");
+		}
+	}
+	
+	doSomeIllegalMath(0);
+
+	// this function belongs to the stdio header, but its output
+	// depends on the value of errno
+	perror("current error");
+}
+
+void testFenvH() {
+	// this header has a lot that begin with FE_
+	// and a lot of functions that begin with fe
+
+	// these macros are flags that indicate whether or not
+	// their exceptions have occured.
+	// each one is a different power of 2 (except FE_ALL_EXCEPT)
+	printf("%d\n", FE_INVALID);
+	printf("%d\n", FE_DIVBYZERO);
+	printf("%d\n", FE_OVERFLOW);
+	printf("%d\n", FE_UNDERFLOW);
+	printf("%d\n", FE_INEXACT);
+	printf("%d\n", FE_ALL_EXCEPT);
+
+	// lets clear our flags before we start experimenting
+	feclearexcept(FE_ALL_EXCEPT);
+
+	// and now lets check if our exceptions are cleared with fetestexcept()
+	printf("\n%s\n", fetestexcept(FE_ALL_EXCEPT) ? "NOT CLEARED\n" : "CLEARED\n");
+
+	// now do a lot of illegal math to activate some exception flags
+	printf("doing bad math\n");
+	double i = 1.0 / 0.0; // raising the FE_DIVBYZERO flag
+	double k = DBL_MAX * 10.0; // raising the FE_OVERFLOW flag
+	double j = 0.1 / 100000.0; // raising the FE_INEXACT flag
+
+	// and check again for each exception:
+	printf("%s", fetestexcept(FE_INVALID) ? "\nINVALID flag is up\n" : "");
+	printf("%s", fetestexcept(FE_DIVBYZERO) ? "DIVBYZERO flag is up\n" : "");
+	printf("%s", fetestexcept(FE_OVERFLOW) ? "OVERFLOW flag is up\n" : "");
+	printf("%s", fetestexcept(FE_UNDERFLOW) ? "UNDERFLOW flag is up\n" : "");
+	printf("%s", fetestexcept(FE_INEXACT) ? "INEXACT flag is up\n" : "");
+
+	/* you can also choose the rounding method your program
+	/  will use to one of these four:
+	/  - FE_TONEAREST
+	/  - FE_TOWARDZERO
+	/  - FE_UPWARD
+	/  - FE_DOWNWARD
+	/  lets see how each one acts                        */
+
+	float roundingNightmare = 1.5;
+	fesetround(FE_TONEAREST);
+	printf("\n1.5 to nearest: %.1f\n", rint(roundingNightmare));
+	fesetround(FE_TOWARDZERO);
+	printf("1.5 towards zero: %.1f\n", rint(roundingNightmare));
+	fesetround(FE_UPWARD);
+	printf("1.5 upwards: %.1f\n", rint(roundingNightmare));
+	fesetround(FE_DOWNWARD);
+	printf("1.5 downwards: %.1f\n", rint(roundingNightmare));
 }

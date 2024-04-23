@@ -75,7 +75,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testFloatH();
+	testIntTypesH();
 	return 0;
 }
 
@@ -280,4 +280,22 @@ void testFloatH() {
 
 
 
-void 
+void testIntTypesH() {
+	// this header contains macros for the printf and scanf family functions formating
+	// for example the %d, %i and etc.
+	int integer = 1000;
+	int octal = 0777;
+	int hexadecimal = 0xFFF;
+	printf("%"PRId8"\n", integer); // PRId32 -> d
+	printf("%"PRIo32"\n", octal); // PRIo32 -> o
+	printf("%"PRIx32"\n", hexadecimal); // PRIx32 -> x
+
+	scanf("%"SCNd32, &integer); // SCNd32 -> d
+	scanf("%"SCNo32, &octal); // SCNo32 -> o
+	scanf("%"SCNx32, &hexadecimal); // SCNx32 -> x
+
+	// there are many more macros, for every formating involving integers
+	// and for every integer size, but you got the point.
+	// I don't really know if there is any situation in which using these macros
+	// is better than writing %d or %o and so on.
+}

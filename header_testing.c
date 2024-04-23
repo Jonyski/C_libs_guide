@@ -75,7 +75,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testISO646H();
+	testLimitsH();
 	return 0;
 }
 
@@ -334,4 +334,33 @@ void testISO646H() {
 	if(array<:0:> == 3) <% // <% becomes {
 		printf(message);
 	%> // %> becomes }
+}
+
+void testLimitsH() {
+	// a bunch of macros containing the bit size of some types
+	// and the max and min limits of integer types (such as short int and long int)
+	printf("\n\nCHAR_BIT = %d\n", CHAR_BIT); // how big is a char in bits
+	printf("MB_LEN_MAX = %d\n\n", MB_LEN_MAX); // how many bytes can a multibyte char have
+	
+	printf("CHAR_MIN = %+d\n", CHAR_MIN); // minimum value of a char
+	printf("CHAR_MAX = %+d\n", CHAR_MAX); // maximum value of a char
+	printf("SCHAR_MIN = %+d\n", SCHAR_MIN); // minimun value of a signed char
+	printf("SCHAR_MAX = %+d\n", SCHAR_MAX); //  maximum value of a signed char
+	printf("UCHAR_MAX = %u\n\n", UCHAR_MAX); // maximun value of an unsigned char
+	
+	printf("SHRT_MIN = %+d\n", SHRT_MIN); // minimum value of a short int
+	printf("SHRT_MAX = %+d\n", SHRT_MAX); // maximun value of a short int
+	printf("USHRT_MAX = %u\n\n", USHRT_MAX); // maximun value of an unsigned short int
+	
+	printf("INT_MIN = %+d\n", INT_MIN); // minimum value of an int
+	printf("INT_MAX = %+d\n", INT_MAX); // maximun value of an int
+	printf("UINT_MAX = %u\n\n", UINT_MAX); // maximun value of an unsigned int
+	
+	printf("LONG_MIN = %+ld\n", LONG_MIN); // minimum value of a long int
+	printf("LONG_MAX = %+ld\n", LONG_MAX); // maximun value of a long int
+	printf("ULONG_MAX = %lu\n\n", ULONG_MAX); // maximun value of an unsigned long int
+	
+	printf("LLONG_MIN = %+lld\n", LLONG_MIN); // minimum value of a long long int
+	printf("LLONG_MAX = %+lld\n", LLONG_MAX); // maximun value of a long long int
+	printf("ULLONG_MAX = %llu\n\n", ULLONG_MAX); // maximun value of an unsigned long long int
 }

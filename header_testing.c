@@ -48,7 +48,7 @@ void testErrnoH();
 void testFenvH();
 void testFloatH();
 void testIntTypesH();
-void testISO64H();
+void testISO646H();
 void testLimitsH();
 void testLocaleH();
 void testMathH();
@@ -75,13 +75,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testAssertH();
-	testComplexH();
-	testCtypeH();
-	testErrnoH();
-	testFenvH();
-	testFloatH();
-	testIntTypesH();
+	testISO646H();
 	return 0;
 }
 
@@ -305,4 +299,39 @@ void testIntTypesH() {
 	// and for every integer size, but you got the point.
 	// I don't really know if there is any situation in which using these macros
 	// is better than writing %d or %o and so on.
+}
+
+void testISO646H() {
+	// this header has macros that offer alternative representations
+	// to operators that aren't in the ISO646:1983 character set
+	int zero = 0;
+	int one = 1;
+	int anyNum = 15;
+
+	// not -> !
+	// and -> &&
+	if((not zero) and one) {
+		printf("\n\n!0 && 1\n");
+	}
+	// or -> ||
+	if(zero or one) {
+		printf("0 || 1\n");
+	}
+
+	printf("0 | 1 = %d\n", zero bitor one); // bitor -> |
+	printf("0 & 1 = %d\n", zero bitand one); // bitand -> &
+	printf("%d ^ 1 = %d\n", anyNum, anyNum xor one); // xor -> ^
+	printf("~%d = %d\n", anyNum, compl anyNum); // compl -> ~
+	// other operator macros:
+	// and_eq -> &= 
+	// or_eq -> |=
+	// xor_eq -> ^=
+	// not_eq -> !=
+
+	// there are also macros that replace }, {, [, ] and #
+	int array<:2:> = {3, 2}; // <: becomes [ and :> becomes ]
+	%:define message "HELLO THERE!\n" // %: becomes #
+	if(array<:0:> == 3) <% // <% becomes {
+		printf(message);
+	%> // %> becomes }
 }

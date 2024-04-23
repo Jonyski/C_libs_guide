@@ -75,6 +75,12 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
+	testAssertH();
+	testComplexH();
+	testCtypeH();
+	testErrnoH();
+	testFenvH();
+	testFloatH();
 	testIntTypesH();
 	return 0;
 }
@@ -93,7 +99,8 @@ void testAssertH() {
 
 	// see what happens when assert() is given a false statement
 	printf("doing assert 3\n");
-	assert(x == y); // false
+	// uncomment the next line to see what happens
+	// assert(x == y); // false
 	printf("after assert 3 :^)\n");
 }
 
@@ -118,7 +125,7 @@ void testComplexH() {
 
 	// the "crealf", "creal" and "creall" functions return the real part of a complex num
 	// the "cimag", "cimag" and "cimagl" functions return the imaginary part of a complex num
-	printf("float complex = %.1f + %.1fi\n", crealf(floatComplex), cimagf(floatComplex));
+	printf("\n\nfloat complex = %.1f + %.1fi\n", crealf(floatComplex), cimagf(floatComplex));
 	printf("double complex = %.2lf + %.2lfi\n", creal(doubleComplex), cimag(doubleComplex));
 	printf("long double complex = %.5Lf + %.5Lfi\n", creall(ldoubleComplex), cimagl(ldoubleComplex));
 
@@ -146,7 +153,7 @@ void testCtypeH() {
 	char space = ' ';
 
 	// isalnum() checks if the char is alpha-numeric
-	printf("%c is %salphanumeric\n", dot, isalnum(dot) ? "" : "not ");
+	printf("\n\n%c is %salphanumeric\n", dot, isalnum(dot) ? "" : "not ");
 	// isalpha() checks if the char is in the alphabet
 	printf("%c is %sin the alphabet\n", A, isalpha(A) ? "" : "not ");
 	// islower() checks if the char is lowercase
@@ -174,8 +181,8 @@ void testCtypeH() {
 	char uppercaseD = 'D';
 
 	// you can change a lowercase char to uppercase and vice-versa
-	printf("\n%c\n", tolower(uppercaseD));
-	printf("%c\n", toupper(lowercaseD));
+	printf("\nto lowercase: %c\n", tolower(uppercaseD));
+	printf("to uppercase: %c\n", toupper(lowercaseD));
 }
 
 
@@ -186,7 +193,7 @@ void testErrnoH() {
 	int j = EILSEQ; // illegal byte sequence error
 	int k = ERANGE; // range error
 
-	printf("EDOM == %d\n", i);
+	printf("\n\nEDOM == %d\n", i);
 	printf("EILSEQ == %d\n", j);
 	printf("ERANGE == %d\n", k);
 
@@ -219,12 +226,12 @@ void testFenvH() {
 	// these macros are flags that indicate whether or not
 	// their exceptions have occured.
 	// each one is a different power of 2 (except FE_ALL_EXCEPT)
-	printf("%d\n", FE_INVALID);
-	printf("%d\n", FE_DIVBYZERO);
-	printf("%d\n", FE_OVERFLOW);
-	printf("%d\n", FE_UNDERFLOW);
-	printf("%d\n", FE_INEXACT);
-	printf("%d\n", FE_ALL_EXCEPT);
+	printf("FE_INVALID = \n\n%d\n", FE_INVALID);
+	printf("FE_DIVBYZERO = %d\n", FE_DIVBYZERO);
+	printf("FE_OVERFLOW = %d\n", FE_OVERFLOW);
+	printf("FE_UNDERFLOW = %d\n", FE_UNDERFLOW);
+	printf("FE_INEXACT = %d\n", FE_INEXACT);
+	printf("FE_ALL_EXCEPT = %d\n", FE_ALL_EXCEPT);
 
 	// lets clear our flags before we start experimenting
 	feclearexcept(FE_ALL_EXCEPT);
@@ -268,7 +275,7 @@ void testFenvH() {
 
 void testFloatH() {
 	// this header only has a bunch of macros representing float limits
-	printf("\nFLT_DECIMAL_DIG = %d\n", FLT_DECIMAL_DIG); // precision of a float in decimal digits
+	printf("\n\nFLT_DECIMAL_DIG = %d\n", FLT_DECIMAL_DIG); // precision of a float in decimal digits
 	printf("FLT_RADIX = %d\n", FLT_RADIX); // the numerical base used to represent all float types
 	printf("FLT_MIN = %e\n", FLT_MIN); // the smallest number a float can represent
 	printf("FLT_TRUE_MIN = %e\n", FLT_TRUE_MIN); // the true smallest number a float can represent
@@ -286,9 +293,9 @@ void testIntTypesH() {
 	int integer = 1000;
 	int octal = 0777;
 	int hexadecimal = 0xFFF;
-	printf("%"PRId8"\n", integer); // PRId32 -> d
-	printf("%"PRIo32"\n", octal); // PRIo32 -> o
-	printf("%"PRIx32"\n", hexadecimal); // PRIx32 -> x
+	printf("decimal formatting: \n\n%"PRId8"\n", integer); // PRId32 -> d
+	printf("octal formatting: %"PRIo32"\n", octal); // PRIo32 -> o
+	printf("hexadecimal formatting: %"PRIx32"\n", hexadecimal); // PRIx32 -> x
 
 	scanf("%"SCNd32, &integer); // SCNd32 -> d
 	scanf("%"SCNo32, &octal); // SCNo32 -> o

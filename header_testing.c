@@ -75,7 +75,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testLimitsH();
+	testLocaleH();
 	return 0;
 }
 
@@ -363,4 +363,13 @@ void testLimitsH() {
 	printf("LLONG_MIN = %+lld\n", LLONG_MIN); // minimum value of a long long int
 	printf("LLONG_MAX = %+lld\n", LLONG_MAX); // maximun value of a long long int
 	printf("ULLONG_MAX = %llu\n\n", ULLONG_MAX); // maximun value of an unsigned long long int
+}
+
+void testLocaleH() {
+	// Basically this header lets you change the locale of your program,
+	// including the character set, the decimal separating symbol and the currency.
+
+	// In most cases you will simply do the following to set the locale to the OS one
+	setlocale(LC_ALL, "");
+	printf("current locale: %s\n", setlocale(LC_ALL, NULL));
 }

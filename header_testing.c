@@ -75,7 +75,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testMathH();
+	testSetjmpH();
 	return 0;
 }
 
@@ -424,4 +424,24 @@ void testMathH() {
 	printf("infinity = %f\n", INFINITY);
 	printf("%.1lf < %f = %s\n", pow(2, 64), INFINITY, pow(2, 64) < INFINITY ? "true" : "false");
 
+}
+
+void testSetjmpH() {
+	// this header allows you to save stack in a certain moment
+	// with setjpm() and then jump to that state with longjmp()
+	jmp_buf presentBuffer;
+
+	void travelToThePast(int i) {
+		printf("we are in the past %d\n", i);
+		// go back to the future
+		puts("going back to the future...");
+		longjmp(presentBuffer, i + 1);
+	}
+
+	int i = setjmp(presentBuffer);
+	printf("we are in the present %d\n", i);
+	if(i < 6) {
+		puts("traveling back to the past!!!");
+		travelToThePast(i);
+	}
 }

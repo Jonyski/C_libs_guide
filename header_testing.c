@@ -75,7 +75,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testLocaleH();
+	testMathH();
 	return 0;
 }
 
@@ -372,4 +372,56 @@ void testLocaleH() {
 	// In most cases you will simply do the following to set the locale to the OS one
 	setlocale(LC_ALL, "");
 	printf("current locale: %s\n", setlocale(LC_ALL, NULL));
+}
+
+void testMathH() {
+	// As the name sugests, this header contains a lot of usefull math functions
+
+	int a = 3;
+	int b = -5;
+	double c = 1.25;
+	double d = 4.999999;
+	double e = 10.0;
+	float f = 2.5;
+	float g = 8.0;
+
+	// absolute value
+	printf("\n\nabsolute value of %d: %d\n", b, abs(b));
+	// division: returns the quotient and the remainder
+	printf("%d/%d is equal to %d and the remainder is %d\n", b, a, div(b, a).quot, div(b, a).rem);
+	// calculates the remainder of a floating point division
+	printf("the remainder of %.1f/%.1f is %.1f\n", g, f, remainder(g, f));
+	// calculates (a * b) + c
+	printf("%lf * %lf + %lf = %lf\n", c, d, e, fma(c, d, e));
+	// get the bigger float
+	printf("the bigger foat is: %f\n", fmax(f, g));
+	// get the smaller float
+	printf("the smaller float is: %f\n", fmin(f, g));
+	// get the difference between two floats (or 0 if the first is smaller than the second)
+	printf("the difference between %f and %f is %f\n", g, f, fdim(g, f));
+	// get NaN (not a number)
+	printf("%f\n", nan("2"));
+	// exponential (in base e and 2)
+	printf("e^%d = %f\n", a, exp(a));
+	printf("2^%d = %f\n", b, exp2(b));
+	// logarithms (in base e, 2 and 10)
+	printf("ln(%d) = %f\n", a, log(a));
+	printf("log2(%d) = %f\n", a, log2(a));
+	printf("log10(%d) = %f\n", a, log10(a));
+	// power function (x^y)
+	printf("%d^%d = %f\n", b, a, pow(b, a));
+	// square root and cubic root
+	printf("square root of %d = %f\n", a, sqrt(a));
+	printf("cubic root of %d = %f\n", a, cbrt(a));
+	// trigonometric functions
+	printf("sine of %d = %f\n", a, sin(a));
+	printf("cosine of %d = %f\n", a, cos(a));
+	printf("tangent of %d = %f\n", a, tan(a));
+	// floor and ceil functions
+	printf("the floor of %.2f is %.1f\n", c, floor(c));
+	printf("the ceiling of %.2f is %.1f\n", c, ceil(c));
+	// INFINITY macro
+	printf("infinity = %f\n", INFINITY);
+	printf("%.1lf < %f = %s\n", pow(2, 64), INFINITY, pow(2, 64) < INFINITY ? "true" : "false");
+
 }

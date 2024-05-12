@@ -73,7 +73,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testSignalH();
+	testStdArgH();
 	return 0;
 }
 
@@ -467,4 +467,29 @@ void testSignalH() {
 	raise(SIGFPE);
 	signal(SIGINT, SIG_DFL); // SIG_DFL is a default handler that depends on the signal
 	raise(SIGINT);
+}
+
+void testStdArgH() {
+	// allows you to create variadic functions (functions
+	// that accept a variable number of arguments)
+	double getAvarage(int numOfNums, ...) {
+		// creates an object with info for the other header functions
+		va_list args;
+		
+		// enables access to the ... arguments
+		va_start(args, numOfNums);
+
+		double result = 0;
+		for(int i = 0; i < numOfNums; i++) {
+			// accesses the next argument on the list
+			result += va_arg(args, double);
+		}
+		// terminates access to the ... arguments
+		va_end(args);
+
+		return result/numOfNums;
+	}
+
+	printf("\n\naverage of 3.2, 8.6 and 2.99 = %.2lf\n", getAvarage(3, 3.2, 8.6, 2.99));
+	printf("average of 5, and 109.55 = %.3lf\n", getAvarage(2, 5, 109.55));
 }

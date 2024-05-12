@@ -19,7 +19,6 @@
 #include <math.h> // mathematical functions
 #include <setjmp.h> // nonlocal jumps
 #include <signal.h> // signal handling
-#include <stdalign.h> // alignas and alignof macros
 #include <stdarg.h> // variable arguments
 #include <stdatomic.h> // atomic operations
 #include <stdbool.h> // boolean macros
@@ -54,7 +53,6 @@ void testLocaleH();
 void testMathH();
 void testSetjmpH();
 void testSignalH();
-void testStdAlignH();
 void testStdArgH();
 void testStdAtomicH();
 void testStdBoolH();
@@ -455,7 +453,7 @@ void testSignalH() {
 	void customHandler2(int signal) {
 		printf("handler 2 activated\n");
 	}
-	
+
 	// sig_atomic_t is an int type that can be accessed atomically in multithread programs 
 	volatile sig_atomic_t customSignal1 = 10;
 	volatile sig_atomic_t customSignal2 = 11;

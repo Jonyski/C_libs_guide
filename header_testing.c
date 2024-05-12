@@ -75,7 +75,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testSetjmpH();
+	testSignalH();
 	return 0;
 }
 
@@ -376,7 +376,6 @@ void testLocaleH() {
 
 void testMathH() {
 	// As the name sugests, this header contains a lot of usefull math functions
-
 	int a = 3;
 	int b = -5;
 	double c = 1.25;
@@ -444,4 +443,30 @@ void testSetjmpH() {
 		puts("traveling back to the past!!!");
 		travelToThePast(i);
 	}
+}
+
+void testSignalH() {
+	// this header allows you to set up signal handlers
+	// and then raise the signals to call their handlers
+	
+	void customHandler1(int signal) {
+		printf("\n\nhandler 1 activated\n");
+	}
+	void customHandler2(int signal) {
+		printf("handler 2 activated\n");
+	}
+	
+	// sig_atomic_t is an int type that can be accessed atomically in multithread programs 
+	volatile sig_atomic_t customSignal1 = 10;
+	volatile sig_atomic_t customSignal2 = 11;
+	signal(customSignal1, customHandler1);
+	signal(customSignal2, customHandler2);
+	raise(customSignal1);
+	raise(customSignal2);
+
+	// there are also some default handlers and default signals
+	signal(SIGFPE, SIG_IGN); // SIG_IGN is a handler that ignores the signal
+	raise(SIGFPE);
+	signal(SIGINT, SIG_DFL); // SIG_DFL is a default handler that depends on the signal
+	raise(SIGINT);
 }

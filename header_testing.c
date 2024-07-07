@@ -73,7 +73,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testStdIntH();
+	testStdIOH();
 	return 0;
 }
 
@@ -594,4 +594,34 @@ void testStdIntH() {
 	printf("int16 min and max: %d, %d\n", INT16_MIN, INT16_MAX);
 	printf("int32 min and max: %d, %d\n", INT32_MIN, INT32_MAX);
 	printf("int64 min and max: %ld, %ld\n", INT64_MIN, INT64_MAX);
+}
+
+void testStdIOH() {
+	// this is one of the most important headers, because it allows us
+	// to interact with the FILE type, and that includes the standard input
+	// and standard output streams (usually the terminal)
+
+	// printing and reading from the standard IO
+	char input[100];
+	printf("\n\ngive me some text: ");
+	scanf("%99s", input); // reading a string with at maximum 99 chars
+	printf("you wrote %s\n", input); // printing it in the terminal
+
+	// we can also read from and write to files
+	FILE *thisCode = fopen("header_testing.c", "r"); // open this file in read mode
+	char first1000chars[1001];
+	fread(first1000chars, sizeof(char), 1000, thisCode);
+	printf("\nThe beggining of this file:\n%s\n", first1000chars);
+	fclose(thisCode);
+
+	FILE *newFile = fopen("target.txt", "w"); // opening in write mode
+	fwrite(first1000chars, sizeof(char), 1000, newFile);
+	fclose(newFile);
+
+	// there are also methods to rename and delete files
+	rename("target.txt", "target_file.txt");
+	remove("target_file.txt");
+
+	// in total there must be like 50 functions that read and write to files
+	// in all sorts of ways, but this is already enough to play around with
 }

@@ -1,5 +1,5 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/ Information about the headers were got from:
+/ Information about the headers were gotten from:
 / cppreference: https://en.cppreference.com/w/c/header
 / IME-USP: https://www.ime.usp.br/~pf/algorithms/appendices/libraries.html
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -73,7 +73,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testStdArgH();
+	testStdAtomicH();
 	return 0;
 }
 
@@ -492,4 +492,41 @@ void testStdArgH() {
 
 	printf("\n\naverage of 3.2, 8.6 and 2.99 = %.2lf\n", getAvarage(3, 3.2, 8.6, 2.99));
 	printf("average of 5, and 109.55 = %.3lf\n", getAvarage(2, 5, 109.55));
+}
+
+void testStdAtomicH() {
+	// this header gives us a way to make variables atomic and
+	// some functions to do simple atomic operations
+
+	// creates an atomic int and an atomic char
+	_Atomic int atomInt = 10;
+	_Atomic char atomChar = 'C';
+
+	printf("\n\n%c is %d/%d\n", atomChar, atomInt, atomInt);
+
+	// atomically stores a value in an atomic variable
+	atomic_store(&atomInt, 20);
+	printf("%c is %d/%d\n", atomChar, atomInt, atomInt);
+	// atomically reads the value of an atomic variable
+	int x = atomic_load(&atomInt);
+	printf("%d\n", x);
+
+	// these functions offered by this header alse have an "explicit"
+	// version each, which accepts an extra argument that is "memory_order".
+	// Memory orders define how an operation should be sincronyzed with the others,
+	// and these are the options:
+	// - memory_order_relaxed: No synchronization or ordering constraints
+	// - memory_order_acquire: Ensures that subsequent operations are not moved before this one
+	// - memory_order_release: Ensures that previous operations are not moved after this one
+	// - memory_order_acq_rel: Combines acquire and release semantics
+	// - memory_order_seq_cst: Sequential consistency, ensuring a total order of all operations
+
+	// you can also create atomic boolean flags
+	atomic_flag flag = ATOMIC_FLAG_INIT;
+	// and then activate the flag and clear it
+	if (!atomic_flag_test_and_set(&flag)) {
+    	printf("we got the flag\n");
+	}
+	atomic_flag_clear(&flag);
+	printf("we cleared the flag\n");
 }

@@ -73,7 +73,7 @@ void testWCtypeH();
 // its respective function and call it in main to see it in action
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testStdLibH();
+	testStdNoReturnH();
 	return 0;
 }
 
@@ -677,4 +677,14 @@ void testStdLibH() {
 	atexit(exiting1);
 
 	exit(0);
+}
+
+void testStdNoReturnH() {
+	// this header defines the _Noreturn function modifier,
+	// a function with this modifier shouldn't return ever, if
+	// it does, the behavior is undefined (in gcc you get a compilation error)
+	_Noreturn int functionThatReturns() {
+		return 1;
+	}
+	int a = functionThatReturns();
 }

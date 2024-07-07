@@ -73,7 +73,7 @@ void testWCtypeH();
 // its respective function and call it in main to see it in action
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testStringH();
+	testTgMathH();
 	return 0;
 }
 
@@ -679,6 +679,8 @@ void testStdLibH() {
 	exit(0);
 }
 
+
+
 void testStdNoReturnH() {
 	// this header defi"nes the _Noreturn function modifier,
 		// a function with this modifier shouldn't return ever, if
@@ -719,4 +721,19 @@ void testStdNoReturnH() {
 		char concat[20] = "I love "; // it has to be big enough to hold itself + the string we will concat
 		strcat(concat, string); // concat becomes "I love C lang"
 		printf("%s\n", concat);
+}
+
+
+
+void testTgMathH() {
+	// TGmath stands for type generic math, this header includes
+	// the math.h and complex.h headers and defines some macros to
+	// handle mathematical function calls of different types for you
+
+	// for example, when we call sin() passing a float, it automatically
+	// calls sinf() for us (the sin function that recieves a float)
+	float f = 32.5;
+	printf("\n\n%f\n", sin(f));
+
+	// thats basically it, just a helpfull header
 }

@@ -73,7 +73,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testStdAtomicH();
+	testStdBoolH();
 	return 0;
 }
 
@@ -529,4 +529,18 @@ void testStdAtomicH() {
 	}
 	atomic_flag_clear(&flag);
 	printf("we cleared the flag\n");
+}
+
+void testStdBoolH(){
+	// this tiny header just creates the bool keyword and the
+	// true and false macros
+
+	bool falseValue = false;
+	bool trueValue = true;
+
+	if(falseValue) {
+		printf("\n\nthis should not be printed\n");
+	} else if(trueValue) {
+		printf("\n\nand this should be printed\n");
+	}
 }

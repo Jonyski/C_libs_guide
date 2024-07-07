@@ -73,7 +73,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testStdDefH();
+	testStdIntH();
 	return 0;
 }
 
@@ -564,4 +564,34 @@ void testStdDefH() {
 	printf("the name is at offset %ld\n", offsetof(struct cat, name));
 	printf("the age is at offset %ld\n", offsetof(struct cat, age));
 	printf("the color is at offset %ld\n", offsetof(struct cat, color));
+}
+
+void testStdIntH() {
+	// in this header many integer types and macros related to ints are defined
+
+	// defining ints of diferent sizes
+	int8_t int8 = 8;
+	int16_t int16 = 16;
+	int32_t int32 = 32;
+	int64_t int64 = 64;
+
+	printf("\n\nsize of int8_t: %ld bytes\n", sizeof(int8));
+	printf("size of int16_t: %ld bytes\n", sizeof(int16));
+	printf("size of int32_t: %ld bytes\n", sizeof(int32));
+	printf("size of int64_t: %ld bytes\n", sizeof(int64));
+
+	// the int type with the maximum width
+	intmax_t intmax = 10000;
+	printf("size of intmax_t: %ld bytes\n", sizeof(intmax));
+	// an int type that can hold a pointer
+	intptr_t intptr = (intptr_t) &int8;
+	printf("size of intptr_t: %ld bytes\n", sizeof(intptr));
+	printf("memory location being hold: %lx\n", intptr);
+
+	// and here are some macros defining the minimum and
+	// maximum values of those int types, just like in limits.h
+	printf("int8 min and max: %d, %d\n", INT8_MIN, INT8_MAX);
+	printf("int16 min and max: %d, %d\n", INT16_MIN, INT16_MAX);
+	printf("int32 min and max: %d, %d\n", INT32_MIN, INT32_MAX);
+	printf("int64 min and max: %ld, %ld\n", INT64_MIN, INT64_MAX);
 }

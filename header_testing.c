@@ -73,7 +73,7 @@ void testWCtypeH();
 // its respective function and call it in main to see it in action
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testStdNoReturnH();
+	testStringH();
 	return 0;
 }
 
@@ -680,11 +680,43 @@ void testStdLibH() {
 }
 
 void testStdNoReturnH() {
-	// this header defines the _Noreturn function modifier,
-	// a function with this modifier shouldn't return ever, if
-	// it does, the behavior is undefined (in gcc you get a compilation error)
-	_Noreturn int functionThatReturns() {
-		return 1;
+	// this header defi"nes the _Noreturn function modifier,
+		// a function with this modifier shouldn't return ever, if
+		// it does, the behavior is undefined (in gcc you get a compilation error)
+		_Noreturn int functionThatReturns() {
+			// uncomment the return and comment the exit to see the error
+			//return 1;
+			exit(0);
+		}
+		int a = functionThatReturns();
 	}
-	int a = functionThatReturns();
+	
+	void testStringH() {
+		// this header has a lot of helper funtions involving strings, or,
+		// in technical terms, NTBS (Null Terminated Byte Strings)
+	
+		// getting the length of a string (not including the null-terminator)
+		char *string = "C lang";
+		printf("\n\nthe length of the string is: %ld\n", strlen(string));
+	
+		// copying an string to another variable
+		char stringCopy[7]; // strlen(string) + null-terminator = 7
+		strcpy(stringCopy, string);
+		printf("%s\n", stringCopy);
+	
+		// comparing two strings with strcmp(), returns a negative value if the first
+		// is appears before the second, 0 if they are equal, and a positive value otherwise 
+		char *string2 = "Rust lang";
+		if(strcmp(string, string2) < 0) {
+			printf("%s comes before %s\n", string, string2);
+		} else if(strcmp(string, string2) > 0) {
+			printf("%s comes after %s\n", string, string2);
+		} else {
+			printf("they are equal\n");
+		}
+	
+		// we can also concatenate 2 strings
+		char concat[20] = "I love "; // it has to be big enough to hold itself + the string we will concat
+		strcat(concat, string); // concat becomes "I love C lang"
+		printf("%s\n", concat);
 }

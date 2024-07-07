@@ -70,7 +70,7 @@ void testWcharH();
 void testWCtypeH();
 
 // Now, to understand and test each header, just read
-// its respective function and call it in main
+// its respective function and call it in main to see it in action
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
 	testStdIOH();
@@ -79,8 +79,8 @@ int main(int argc, char const *argv[]) {
 
 
 
-// This header has basically only 1 function (the other one is deprecated)
 void testAssertH() {
+	// This header has basically only 1 function (the other one is deprecated)
 	int x = 10;
 	int y = 20;
 
@@ -211,6 +211,8 @@ void testErrnoH() {
 	perror("current error");
 }
 
+
+
 void testFenvH() {
 	// this header has a lot that begin with FE_
 	// and a lot of functions that begin with fe
@@ -265,6 +267,8 @@ void testFenvH() {
 	// there's more to see in this header, but its too niche for my taste
 }
 
+
+
 void testFloatH() {
 	// this header only has a bunch of macros representing float limits
 	printf("\n\nFLT_DECIMAL_DIG = %d\n", FLT_DECIMAL_DIG); // precision of a float in decimal digits
@@ -298,6 +302,8 @@ void testIntTypesH() {
 	// I don't really know if there is any situation in which using these macros
 	// is better than writing %d or %o and so on.
 }
+
+
 
 void testISO646H() {
 	// this header has macros that offer alternative representations
@@ -334,6 +340,8 @@ void testISO646H() {
 	%> // %> becomes }
 }
 
+
+
 void testLimitsH() {
 	// a bunch of macros containing the bit size of some types
 	// and the max and min limits of integer types (such as short int and long int)
@@ -363,6 +371,8 @@ void testLimitsH() {
 	printf("ULLONG_MAX = %llu\n\n", ULLONG_MAX); // maximun value of an unsigned long long int
 }
 
+
+
 void testLocaleH() {
 	// Basically this header lets you change the locale of your program,
 	// including the character set, the decimal separating symbol and the currency.
@@ -371,6 +381,8 @@ void testLocaleH() {
 	setlocale(LC_ALL, "");
 	printf("current locale: %s\n", setlocale(LC_ALL, NULL));
 }
+
+
 
 void testMathH() {
 	// As the name sugests, this header contains a lot of usefull math functions
@@ -423,6 +435,8 @@ void testMathH() {
 
 }
 
+
+
 void testSetjmpH() {
 	// this header allows you to save stack in a certain moment
 	// with setjpm() and then jump to that state with longjmp()
@@ -442,6 +456,8 @@ void testSetjmpH() {
 		travelToThePast(i);
 	}
 }
+
+
 
 void testSignalH() {
 	// this header allows you to set up signal handlers
@@ -469,6 +485,8 @@ void testSignalH() {
 	raise(SIGINT);
 }
 
+
+
 void testStdArgH() {
 	// allows you to create variadic functions (functions
 	// that accept a variable number of arguments)
@@ -493,6 +511,8 @@ void testStdArgH() {
 	printf("\n\naverage of 3.2, 8.6 and 2.99 = %.2lf\n", getAvarage(3, 3.2, 8.6, 2.99));
 	printf("average of 5, and 109.55 = %.3lf\n", getAvarage(2, 5, 109.55));
 }
+
+
 
 void testStdAtomicH() {
 	// this header gives us a way to make variables atomic and
@@ -531,6 +551,8 @@ void testStdAtomicH() {
 	printf("we cleared the flag\n");
 }
 
+
+
 void testStdBoolH(){
 	// this tiny header just creates the bool keyword and the
 	// true and false macros
@@ -544,6 +566,8 @@ void testStdBoolH(){
 		printf("\n\nand this should be printed\n");
 	}
 }
+
+
 
 void testStdDefH() {
 	// the most usefull things defined in this header
@@ -565,6 +589,8 @@ void testStdDefH() {
 	printf("the age is at offset %ld\n", offsetof(struct cat, age));
 	printf("the color is at offset %ld\n", offsetof(struct cat, color));
 }
+
+
 
 void testStdIntH() {
 	// in this header many integer types and macros related to ints are defined
@@ -596,6 +622,8 @@ void testStdIntH() {
 	printf("int64 min and max: %ld, %ld\n", INT64_MIN, INT64_MAX);
 }
 
+
+
 void testStdIOH() {
 	// this is one of the most important headers, because it allows us
 	// to interact with the FILE type, and that includes the standard input
@@ -624,4 +652,10 @@ void testStdIOH() {
 
 	// in total there must be like 50 functions that read and write to files
 	// in all sorts of ways, but this is already enough to play around with
+}
+
+
+
+void testStdLibH() {
+
 }

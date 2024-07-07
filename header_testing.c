@@ -73,7 +73,7 @@ void testWCtypeH();
 // its respective function and call it in main
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testStdBoolH();
+	testStdDefH();
 	return 0;
 }
 
@@ -543,4 +543,25 @@ void testStdBoolH(){
 	} else if(trueValue) {
 		printf("\n\nand this should be printed\n");
 	}
+}
+
+void testStdDefH() {
+	// the most usefull things defined in this header
+	// are the NULL macro and the offsetof() function, I would say
+
+	// NULL is a null pointer
+	int *a = NULL;
+	printf("\n\nnull pointer: %p\n", a);
+
+	// using the offsetof() function we can get the offset in bytes
+	// between the beggining of a struct and one of its properties (including paddings)
+	struct cat {
+		char *name;
+		short int age;
+		char *color;
+	};
+
+	printf("the name is at offset %ld\n", offsetof(struct cat, name));
+	printf("the age is at offset %ld\n", offsetof(struct cat, age));
+	printf("the color is at offset %ld\n", offsetof(struct cat, color));
 }

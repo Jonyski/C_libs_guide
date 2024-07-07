@@ -73,7 +73,7 @@ void testWCtypeH();
 // its respective function and call it in main to see it in action
 // (and ofc, modify the functions as you please, experiment!)
 int main(int argc, char const *argv[]) {
-	testStdIOH();
+	testStdLibH();
 	return 0;
 }
 
@@ -657,5 +657,24 @@ void testStdIOH() {
 
 
 void testStdLibH() {
+	// this is also one of the most important headers, because it defines
+	// stuff like the exit() and system() functions
 
+	// the system() function allows us to make system calls such as "mkdir"
+	// or "cd" through code
+	system("ls -a");
+
+	// the atexit function defines functions that shall be called
+	// when the program terminantes normally (through exit() or returning from main)
+	void exiting1() {
+		printf("\ndoing something\n");
+	}
+	void exiting2() {
+		printf("doing another thing\n");
+	}
+	// the functions are called in the reverse order they are passed to atexit()
+	atexit(exiting2);
+	atexit(exiting1);
+
+	exit(0);
 }
